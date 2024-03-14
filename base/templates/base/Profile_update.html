@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %} 
+{% block title %}Profile Update{% endblock title %} 
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h5 class="card-title text-bright text-center">User Profile</h5>
+                </div>
+                {% if user_form.errors %}
+                      {% for field in user_form %}
+                        {% for error in field.errors %}
+                          <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                      {% endfor %}
+                    {% endif %}
+                <div class="card-body bg-secondary">
+                    <form action="{% url 'profile_up' user.id %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group text-dark">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name='username' placeholder="Enter your username" value='{{ user_form.username.value }}'>
+                        </div>
+                        <div class="form-group text-dark">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name='email' placeholder="Enter your email" value='{{ user_form.email.value }}'>
+                        </div>
+                        <div class="form-group text-dark">
+                            <label for="profilePic">Profile Picture</label>
+                            <input type="file" name="profile_pic" class="form-control-file" id="profilePic">
+                            {% if profile.profile_pic %}
+                                <!-- Display the current profile picture -->
+                                <b>Current Profile Pic</b>
+                                <img src="{{ profile.profile_pic.url }}" class="img-fluid" alt="Profile Picture" width='10%'>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group text-dark">
+                            <label for="bio">Bio</label>
+                            <textarea class="form-control" id="bio" name='bio' rows="3" placeholder="Write something about yourself">{{profile.bio}}</textarea>
+                        </div>
+                        <!-- Save Button -->
+                        <div class='text-center'>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="{{ request.META.HTTP_REFERER }}" class='btn btn-warning'>Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

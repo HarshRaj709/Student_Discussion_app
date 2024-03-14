@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %} 
+{% block title %}Home{% endblock title %} 
+{% block content %}
+<style>
+  .home-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 20px; /* Adding gap between grid items */
+  }
+
+  @media (max-width: 768px) {
+    .home-container {
+      grid-template-columns: 1fr; /* Change to a single column layout on smaller screens */
+    }
+  }
+
+  .toggle-btn {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+</style>
+
+<div class="home-container bg-dark text-light">
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <button class="toggle-btn" id="topics-toggle-btn">Topics Found</button>
+        <div id="topics-content">
+          {% include 'base/topics.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title text-dark">{{ room_count }} Rooms Found</h5>
+      </div>
+      <div class="card-body">
+        <a href="{% url 'createroom' %}" class="btn btn-primary mb-2">Create Room</a>
+        {% include 'base/feed.html' %}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-body p-0 mt-0">
+        <button class="toggle-btn" id="activity-toggle-btn">Activity Found</button>
+        <div id="activity-content">
+          {% include 'base/activity_components.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const topicsToggleBtn = document.getElementById('topics-toggle-btn');
+    const activityToggleBtn = document.getElementById('activity-toggle-btn');
+    const topicsContent = document.getElementById('topics-content');
+    const activityContent = document.getElementById('activity-content');
+
+    topicsToggleBtn.addEventListener('click', function() {
+      topicsContent.classList.toggle('d-none'); // Toggle the visibility of topics content
+    });
+
+    activityToggleBtn.addEventListener('click', function() {
+      activityContent.classList.toggle('d-none'); // Toggle the visibility of activity content
+    });
+  });
+</script>
+
+{% endblock content %}

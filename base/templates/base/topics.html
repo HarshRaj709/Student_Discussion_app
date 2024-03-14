@@ -1,0 +1,71 @@
+{% comment %} <div class="container bg-dark text-light py-4 col-sm-12">
+  <h3 class="mt-5">Browse Topics</h3>
+  <hr class="mb-4">
+
+  <!-- All Topics -->
+  <div class="mb-3">
+    <a href="{% url 'home' %}" class="btn btn-outline-primary">All</a>
+    <div class='btn btn-info ml-5'>{{room_count}}</div>
+  </div>
+
+  <!-- Individual Topics -->
+  {% for topic in topics %}
+  <div class="mb-3">
+    <a href="{% url 'home' %}?q={{topic.name}}" class="btn btn-outline-primary">{{topic.name}}</a>
+    <div class='btn btn-info ml-5'>{{topic.room_set.all.count}}</div>
+  </div>
+  {% endfor %}
+</div> {% endcomment %}
+
+
+
+<div class="container bg-dark text-light py-4 col-sm-12">
+  <h3 class="mt-5">Browse Topics</h3>
+  <hr class="mb-4">
+
+   <!-- All Topics -->
+   <div class="mb-3">
+    <a href="{% url 'home' %}" class="btn btn-outline-primary">All</a>
+    <div class='btn btn-info ml-5'>{{room_count}}</div>
+  </div>
+
+
+  <!-- Display the first 5 topics -->
+  {% for topic in topics|slice:":5" %}
+  <div class="mb-3">
+    <a href="{% url 'home' %}?q={{topic.name}}" class="btn btn-outline-primary">{{topic.name}}</a>
+    <div class='btn btn-info ml-5'>{{topic.room_set.all.count}}</div>
+  </div>
+  {% endfor %}
+
+  <!-- Button to toggle remaining topics -->
+  {% if topics.count > 5 %}
+  <div id="toggle-topics" class="mb-3">
+    <button id="more-btn" class="btn btn-outline-primary">More</button>
+  </div>
+  {% endif %}
+
+  <!-- Hide the remaining topics initially -->
+  <div id="remaining-topics" class="d-none">
+    {% for topic in topics|slice:"5:" %}
+    <div class="mb-3">
+      <a href="{% url 'home' %}?q={{topic.name}}" class="btn btn-outline-primary">{{topic.name}}</a>
+      <div class='btn btn-info ml-5'>{{topic.room_set.all.count}}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const moreBtn = document.getElementById('more-btn');
+  const remainingTopics = document.getElementById('remaining-topics');
+
+  moreBtn.addEventListener('click', function() {
+    remainingTopics.classList.toggle('d-none');
+    moreBtn.remove(); // Remove the more button after clicking
+  });
+});
+</script>
+
+

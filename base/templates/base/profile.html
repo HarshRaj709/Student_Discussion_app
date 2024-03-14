@@ -1,0 +1,100 @@
+{% extends 'base/base.html' %} 
+{% block title %}Profile{% endblock title %} 
+{% block content %}
+<style>
+    .profile-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px; /* Adding gap between grid items */
+    }
+    
+    .user-info {
+        justify-content: center;
+    }
+    
+    .toggle-btn {
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 16px;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Media query for small devices */
+    @media (min-width: 768px) {
+        .profile-container {
+            grid-template-columns: 1fr 3fr 1fr; /* Display sections side by side */
+        }
+    }
+</style>
+
+<div class='text-center'>
+    <img src="{{profile.profile_pic.url}}" alt="" srcset="" class="rounded-circle" width="10%">
+    <div class="col-sm-12">
+        <h2 class='col-sm-10 text-warning' style='display:inline-block;'>User's Profile Name: {{ user.username }}</h2>
+        {% if request.user == user or request.user.is_superuser %}
+        <a href="{% url 'profile_up' user.id %}" class='btn btn-warning mb-3'>Edit</a>
+        {% endif %}
+    </div>
+    <h3>User Bio:</h3>
+    <p><b>{{profile.bio}}</b></p>
+    <hr>
+</div>
+
+<div class="profile-container bg-dark text-light">
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <button class="toggle-btn" id="topics-toggle-btn">Toggle Topics</button>
+                <div id="topics-content">
+                    {% include 'base/topics.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class='user-info'>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-dark alert alert-info text-center">Rooms Created by user {{ user.username }}</h5>
+            </div>
+            <div class="card-body">
+                {% include 'base/feed.html' %}
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <button class="toggle-btn" id="activity-toggle-btn">Toggle Activity</button>
+                <div id="activity-content">
+                    {% include 'base/activity_components.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const topicsToggleBtn = document.getElementById('topics-toggle-btn');
+    const activityToggleBtn = document.getElementById('activity-toggle-btn');
+    const topicsContent = document.getElementById('topics-content');
+    const activityContent = document.getElementById('activity-content');
+
+    topicsToggleBtn.addEventListener('click', function() {
+        topicsContent.classList.toggle('d-none'); // Toggle the visibility of topics content
+    });
+
+    activityToggleBtn.addEventListener('click', function() {
+        activityContent.classList.toggle('d-none'); // Toggle the visibility of activity content
+    });
+});
+</script>
+
+{% endblock content %}

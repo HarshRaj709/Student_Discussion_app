@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{% block title %}Room Creation{% endblock title %}
+{% block content %}
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Error!</strong> Please correct the following errors:
+        <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+<div class="container mt-5 border">
+    <h2 class = 'alert alert-secondary m-0 p-0 text-center'>CREATE/UPDATE STUDY ROOM</h2>
+    <hr>
+    <form action="{% url 'createroom' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="topics">Room:</label>
+            <input type="text" name="topic" list="topic-list" class="form-control" required>
+            <datalist id="topic-list">
+                <select id="room_topic">
+                {% for topic in topics %}
+                    <option value="{{ topic.name }}">{{ topic.name }}</option>
+                {% endfor %}
+                </select>
+            </datalist>  
+      </div>
+      <div class="form-group">
+        <label for="room_name">Room Name:</label>
+        <input type="text" name="name" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="room_description">Room Description(optional):</label>
+        <textarea id="description" name="description" rows="4" cols="50" class="form-control"></textarea>
+      </div>
+      <div class='row justify-content-end'>
+        <div class="col-md-3">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+{% comment %} <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div> {% endcomment %}
+{% endblock content %}

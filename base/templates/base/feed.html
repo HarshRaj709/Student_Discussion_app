@@ -1,0 +1,93 @@
+{% comment %} <div class="container container bg-dark text-light py-4 col-sm-12">
+  {% for room in rooms %}
+  <div class="card mb-3 alert alert-info">
+    <div class="card-body ">
+      {% if request.user == room.host %}
+      <div class="mb-2">
+        <a href="{% url 'updateroom' room.id %}" class="btn btn-sm btn-primary me-2">Edit</a>
+        <a href="{% url 'deleteroom' room.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </div>
+      {% endif%}
+      <span><a href="{% url 'profile' room.host.id %}" class="text-decoration-none"> <b class='text-dark'>Creater Name:</b>@{{ room.host.username }}</a></span>
+      <h2 class="mt-2 mb-3">
+        {% comment %} {{ room.id }} - {% endcomment %}
+      {% comment %}
+        <a href="{% url 'room' room.id %}" class="text-decoration-none">{{ room.name }}</a> 
+      </h2>
+      <small class="text-dark ">{{ room.topic.name }}</small>
+      <small class="text-dark">{{ room.participants.all.count }} joined</small>   <!--many to many ko simple access kr sakte h-->
+    </div>
+  </div>
+  {% endfor %}
+</div> {% endcomment %}
+
+
+<div class="container container bg-dark text-light py-4 col-sm-12">
+  <!-- Display the first 5 rooms -->
+  {% for room in rooms|slice:":5" %}
+  <div class="card mb-3 alert alert-info">
+    <div class="card-body ">
+      {% if request.user == room.host %}
+      <div class="mb-2">
+        <a href="{% url 'updateroom' room.id %}" class="btn btn-sm btn-primary me-2">Edit</a>
+        <a href="{% url 'deleteroom' room.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </div>
+      {% endif %}
+      {% if room.host %}
+        <span><a href="{% url 'profile' room.host.id %}" class="text-decoration-none"> <b class='text-dark'>Creater Name:</b>@{{ room.host.username }}</a></span>
+      {% endif %}
+      <h2 class="mt-2 mb-3">
+        {% comment %} {{ room.id }} - {% endcomment %}<a href="{% url 'room' room.id %}" class="text-decoration-none">{{ room.name }}</a> 
+      </h2>
+      <small class="text-dark ">{{ room.topic.name }}</small>
+      <small class="text-dark">{{ room.participants.all.count }} joined</small>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Button to toggle remaining rooms -->
+  {% if rooms.count > 5 %}
+  <div id="toggle-rooms" class="mb-3">
+    <button id="display_content" class="btn btn-outline-primary">More</button>
+  </div>
+  {% endif %}
+
+  <!-- Hide the remaining rooms initially -->
+  <div id="remaining-rooms" class="d-none">
+    {% for room in rooms|slice:"5:" %}
+    <div class="card mb-3 alert alert-info">
+      <div class="card-body ">
+        {% if request.user == room.host or request.user.is_superuser %}
+        <div class="mb-2">
+          <a href="{% url 'updateroom' room.id %}" class="btn btn-sm btn-primary me-2">Edit</a>
+          <a href="{% url 'deleteroom' room.id %}" class="btn btn-sm btn-danger">Delete</a>
+        </div>
+        {% endif %}
+        <img src="{{profile.profile_pic.url}}" alt="">
+        {% if room.host %}
+          <span><a href="{% url 'profile' room.host.id %}" class="text-decoration-none"> <b class='text-dark'>Creater Name:</b>@{{ room.host.username }}</a></span>
+        {% endif %}
+          <h2 class="mt-2 mb-3">
+          {% comment %} {{ room.id }} - {% endcomment %}<a href="{% url 'room' room.id %}" class="text-decoration-none">{{ room.name }}</a> 
+        </h2>
+        <small class="text-dark ">{{ room.topic.name }}</small>
+        <small class="text-dark">{{ room.participants.all.count }} joined</small>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const moreBtn = document.getElementById('display_content');
+  const remainingRooms = document.getElementById('remaining-rooms');
+
+  moreBtn.addEventListener('click', function() {
+    remainingRooms.classList.toggle('d-none');
+    moreBtn.remove(); // Remove the more button after clicking
+  });
+});
+</script>
+
+

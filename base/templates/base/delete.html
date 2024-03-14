@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% block title %}Delete Confirmation{% endblock title %}
+{% block content %}
+    <div class="container border alert alert-secondary">
+        {% if page != 'message' %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <p class='text-dark'>Do you want to delete your page '<b>{{ delete.name }}</b>'?</p>
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary btn-sm me-2">Go back</a>
+            <input type="submit" value="Confirm" class="btn btn-danger btn-sm">
+        </form>
+    {% else %}  
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Do you want to delete you message '<b>{{ delete.body }}</b>'?</p>
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary btn-sm me-2">Go back</a>
+            <input type="submit" value="Confirm" class="btn btn-danger btn-sm">
+        </form>
+    {% endif %}
+    </div>
+{% endblock content %}
