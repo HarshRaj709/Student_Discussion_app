@@ -5,6 +5,8 @@ Also user can create there own Rooms with Topic name - on which Group is based, 
 
 Checkout my website at: http://harshRaj710.pythonanywhere.com
 
+Follow me on LinkedIn: https://linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=harsh-sahu-6957642a1
+
     - Create Rooms For Different Topics
     - Send Messages to Different rooms
     - Login/Signup via Google/Github Account
