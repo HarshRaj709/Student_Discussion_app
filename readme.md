@@ -5,7 +5,7 @@ Also user can create there own Rooms with Topic name - on which Group is based, 
 
 Checkout my website at: http://harshRaj710.pythonanywhere.com
 
-Follow me on LinkedIn: https://linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=harsh-sahu-6957642a1
+Follow me on LinkedIn: [https://linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=harsh-sahu-6957642a1](https://www.linkedin.com/in/harsh-sahu-6957642a1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
     - Create Rooms For Different Topics
     - Send Messages to Different rooms
