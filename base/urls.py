@@ -15,5 +15,7 @@ urlpatterns = [
     path('profile/<int:id>',views.user_profile,name='profile'),
     path('profile_update/<int:id>',views.update_pro,name='profile_up'),
     #message related
-    path('message-delete/<int:pk>/',views.deletemessage,name='message-delete')
+    path('message-delete/<int:pk>/',views.deletemessage,name='message-delete'),
+    #notification related
+    path('Notifications/',views.notifications,name='notify')
 ]

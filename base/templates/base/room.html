@@ -24,15 +24,25 @@
                     <h3 class="card-title">Conversation</h3>
                     <hr>
                     {% for message in room_messages %}
-                        <div class="mb-3">
-                            <small class="text-black">@{{ message.user }}, {{ message.created | timesince }}</small>
-                            {% if request.user == message.user %}
-                                <a href="{% url 'message-delete' message.id %}" class="btn btn-danger mx-2 btn-sm">Delete message</a>
-                            {% endif %}
-                            <h4>{{ message.body }}</h4>
-                        </div>
-                        <hr>
-                    {% endfor %}
+    <div class="mb-3">
+        <small class="text-black">@{{ message.user }}, {{ message.created | timesince }}</small>
+        {% if request.user == message.user %}
+            <a href="{% url 'message-delete' message.id %}" class="btn btn-danger mx-2 btn-sm">Delete message</a>
+        {% endif %}
+        <h4>
+            {% for word in message.body.split %}
+                {% if '@' in word %}
+                    <span class="text-primary">{{ word }}</span>
+                {% else %}
+                    {{ word }}
+                {% endif %}
+                
+            {% endfor %}
+        </h4>
+    </div>
+    <hr>
+{% endfor %}
+
                     {% if request.user.is_authenticated %}
                         <div class="comment-form">
                             <form action="" method="post">

@@ -1,6 +1,7 @@
 <h1>Hello guys this is my First BIG PROJECT</h1>
 
-Its typically a website which allow user to 
+Its typically a website which allow users to participate in a group and can discuss with other memebers about there problems.
+Also user can create there own Rooms with Topic name - on which Group is based, Room name and Room Description.
 
     - Create Rooms For Different Topics
     - Send Messages to Different rooms
@@ -60,4 +61,9 @@ And Please forgive me if you found any Grammatical Mistake in my English.
 - To ensure seamless integration, I ensured that when a user signs up, their data is appropriately related to the `UserProfile`.
 
 
+-----------------------------------------------------------------------------------------------------------------------
+
+<h3>Problems</h3>
+
+- As in this project, i not used django Channels so you need to manually update the website to see new messages.
 

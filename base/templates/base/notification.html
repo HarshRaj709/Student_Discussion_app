@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    {% comment %} {% for notify in notification%}
+        {{notify.message}}
+    {% endfor %} {% endcomment %}
+
+    <div class="container mt-5">    
+        <h1 class="mb-4">Notifications</h1>
+        <div class="row">
+            {% if notification %}
+                {% for notify in notification %}
+                <div class="col-lg-12 m-0 p-0">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">{{ notify.message }}</h5>
+                            <p class="card-text text-muted">Sent on: {{ notify.timestamp }} <br>
+                            user who tagged you : <span class='text-dark font-weight-bold'>{{notify.tag_user}}</span> <br>
+                            Room in which you tagged in: <span class='text-dark font-weight-bold'><a href={% url 'room' notify.room.id %}>{{notify.room}}</a></span></p>
+                        </div> <br>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-lg-12 m-0 p-0">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">No Notifications For you.</h5>
+                        </div> <br>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

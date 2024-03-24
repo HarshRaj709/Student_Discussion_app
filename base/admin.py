@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Room,Topic,Message,UserProfile
+from .models import Room,Topic,Message,UserProfile,Notification
 
 
 @admin.register(Room)
@@ -17,3 +17,7 @@ class AdminMessage(admin.ModelAdmin):
 @admin.register(UserProfile)
 class AdminProfile(admin.ModelAdmin):
     list_display = [field.name for field in UserProfile._meta.fields]
+
+@admin.register(Notification)
+class AdminNotification(admin.ModelAdmin):
+    list_display = [field.name for field in Notification._meta.fields]

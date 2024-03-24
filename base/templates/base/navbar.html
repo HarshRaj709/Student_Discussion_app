@@ -10,7 +10,19 @@
         <input class="form-control mr-sm-2 text-dark" type="search" name="q" placeholder="Search Rooms.." aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
+
+      
+
       <ul class="navbar-nav ml-auto">
+        {% if notification.boolean == True %}   <!--yha pe sahi krna h-->
+          <div class="d-inline-flex">
+            <span class='nav-link'><a href="{% url 'notify' %}"><img src={% static 'base/images/with-dot.png' %}  alt="notification" width='50px' height='40px' class='m-0 p-0'></a></span>
+          </div>
+        {% else %}
+          <div class="d-inline-flex">
+            <span class='nav-link'><a href="{% url 'notify' %}"><img src={% static 'base/images/without-dot.png' %}  alt="notification" width='50px' height='40px' class='m-0 p-0'></a></span>
+          </div>
+        {% endif %}
         {% if not request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link text-warning" href="{% url 'loginhandler' %}">Login</a>

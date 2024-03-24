@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponse
 from django.urls import reverse
-from .models import Room,Topic,Message,UserProfile
+from .models import Room,Topic,Message,UserProfile,Notification
 from .forms import RoomForm,UserRegistration,UserForm,UserProfileForm
 from django.contrib import messages
 from django.db.models import Q
@@ -40,13 +40,22 @@ def home(request):
 
 def room(request,pk):       
     room = Room.objects.get(id=pk)  #first we need to specify the target room then we can apply onetomany relation rule.
-    messages = room.message_set.all().order_by('-created','-updated') #required _set.all() in 1 to many relations  #now show messages according to there created date  #here we are taking child of model name ='messages' and using _set.all() to get only those messages which belongs to our specified room.
+    messages1 = room.message_set.all().order_by('-created','-updated') #required _set.all() in 1 to many relations  #now show messages according to there created date  #here we are taking child of model name ='messages' and using _set.all() to get only those messages which belongs to our specified room.
     
     
     if request.method == 'POST':                            #mera logic working fine
         body = request.POST['message']                      #mera logic
         user = request.user                                     #mera logic
         saved = Message(user=user,room=room,body=body)      #mera logic
+
+        words = body.split()
+        tagged_usernames = [tag[1:] for tag in words if tag.startswith('@')]
+        tagged_users = User.objects.filter(username__in = tagged_usernames)
+        for tagged_user in tagged_users:
+            notified = Notification.objects.create(user=tagged_user,tag_user=user.username,room=room,message=f'You have been tagged in a message by {user.username} in room {room.name}')
+        # messages.success(request,'user tagged')
+        # print(tagged_user)
+
         room.participants.add(user)                                     #yay working now whenever a new user write anything in the room he will get added into it.
         saved.save()                                        #mera logic
         return redirect('room',pk=room.id)  #agar ye nhi lgaya to reload krne pe messages khudse post hote rhenge
@@ -67,7 +76,7 @@ def room(request,pk):
     #Problem user not joined from themselve -----solved line 41
     
     room_user = room.host
-    context = {'room_user':room_user,'room':room,'room_messages':messages,'participants':particpants,'count':parti_count}
+    context = {'notification':Notification,'room_user':room_user,'room':room,'room_messages':messages1,'participants':particpants,'count':parti_count}
     return render(request,'base/room.html',context)
 
 
@@ -297,4 +306,14 @@ def deletemessage(request,pk):
         message.delete()
         return redirect('home')
     return render(request,'base/delete.html',{'delete':message,'page':page})
+
+
+def notifications(request):
+    user = request.user
+    notifications = Notification.objects.filter(user = user).order_by('-timestamp')
+    for notification in notifications:
+        notification.boolean = True
+        notification.save()
+    context = {'notification':notifications}
+    return render(request,'base/notification.html',context)
 

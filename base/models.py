@@ -52,3 +52,13 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    tag_user = models.CharField(max_length=100)
+    room = models.ForeignKey(Room,on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    boolean = models.BooleanField(default = False)
