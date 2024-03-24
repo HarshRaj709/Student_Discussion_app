@@ -3,6 +3,8 @@
 Its typically a website which allow users to participate in a group and can discuss with other memebers about there problems.
 Also user can create there own Rooms with Topic name - on which Group is based, Room name and Room Description.
 
+Checkout my website at: http://harshRaj710.pythonanywhere.com
+
     - Create Rooms For Different Topics
     - Send Messages to Different rooms
     - Login/Signup via Google/Github Account
@@ -66,4 +68,5 @@ And Please forgive me if you found any Grammatical Mistake in my English.
 <h3>Problems</h3>
 
 - As in this project, i not used django Channels so you need to manually update the website to see new messages.
+- Try to show with-dot.png when new notification arrived for a user, and when user render notification file notification icon get changed with without-dot.png file
 
