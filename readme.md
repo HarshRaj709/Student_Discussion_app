@@ -34,6 +34,11 @@ Follow me on LinkedIn: [https://linkedin.com/comm/mynetwork/discovery-see-all?us
 
     Most Recent Activity will appear on the Top
 
+    When a user tagged you in any group message, you will get notified via notification.
+    Information within notification.
+        - Message with username who tagged you and room name in which you tagged.
+        - Room link to see message in which you tagged in.
+
 ------------------------------------------------------------------------------------------------------------------
 
 <h1>All Methods/Notes are written on files</h1>
