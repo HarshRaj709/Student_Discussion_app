@@ -39,6 +39,8 @@ Follow me on LinkedIn: [https://linkedin.com/comm/mynetwork/discovery-see-all?us
     Information within notification.
         - Message with username who tagged you and room name in which you tagged.
         - Room link to see message in which you tagged in.
+        - Now notification icon will show only when you get new notifications.
+        - you can check your all notifications in your profile Notification section.
 
 ------------------------------------------------------------------------------------------------------------------
 
