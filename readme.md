@@ -3,6 +3,10 @@
 Its typically a website which allow users to participate in a group and can discuss with other memebers about there problems.
 Also user can create there own Rooms with Topic name - on which Group is based, Room name and Room Description.
 
+Checkout my website at: http://harshRaj710.pythonanywhere.com
+
+Follow me on LinkedIn: [https://linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=harsh-sahu-6957642a1](https://www.linkedin.com/in/harsh-sahu-6957642a1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+
     - Create Rooms For Different Topics
     - Send Messages to Different rooms
     - Login/Signup via Google/Github Account
@@ -30,11 +34,17 @@ Also user can create there own Rooms with Topic name - on which Group is based, 
 
     Most Recent Activity will appear on the Top
 
+    When a user tagged you in any group message, you will get notified via notification.
+    
+    Information within notification.
+        - Message with username who tagged you and room name in which you tagged.
+        - Room link to see message in which you tagged in.
+
 ------------------------------------------------------------------------------------------------------------------
 
 <h1>All Methods/Notes are written on files</h1>
 
-<h2>I followed DENIS IVY tutorial to create this Project but in many places i used my own methods</h2>
+<h2>I followed DENIS IVY tutorial to create this Project but in many places i used my own methods + notification logic is developed by me.</h2>
 
 I hope this Project will Help you in your Learning Journey...
 
@@ -66,4 +76,5 @@ And Please forgive me if you found any Grammatical Mistake in my English.
 <h3>Problems</h3>
 
 - As in this project, i not used django Channels so you need to manually update the website to see new messages.
+- Try to show with-dot.png when new notification arrived for a user, and when user render notification file notification icon get changed with without-dot.png file
 

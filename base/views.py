@@ -29,13 +29,19 @@ def home(request):
     #lets create a query for Topic
     topics = Topic.objects.all()
 
+    #notification ka jhaam
+    user = request.user
+    notifications = Notification.objects.filter(user=user)
+    # print(notifications)
+    # context = {}
+
     # Recent Activity Feature
     # recent_messages = Message.objects.all()#.order_by('-created','-updated')     #to get most recent messages
     if q:
         recent_messages = Message.objects.filter(Q(room__name__icontains=q))    #to show only those recent activity which are related to the room
     else:
         recent_messages = Message.objects.all()
-    context = {'rooms':room,'topics':topics,'room_count':room_count,'recent_messages':recent_messages}
+    context = {'notifications':notifications,'rooms':room,'topics':topics,'room_count':room_count,'recent_messages':recent_messages}
     return render(request,'base/home.html',context)
 
 def room(request,pk):       
@@ -76,7 +82,7 @@ def room(request,pk):
     #Problem user not joined from themselve -----solved line 41
     
     room_user = room.host
-    context = {'notification':Notification,'room_user':room_user,'room':room,'room_messages':messages1,'participants':particpants,'count':parti_count}
+    context = {'room_user':room_user,'room':room,'room_messages':messages1,'participants':particpants,'count':parti_count}
     return render(request,'base/room.html',context)
 
 
@@ -312,8 +318,21 @@ def notifications(request):
     user = request.user
     notifications = Notification.objects.filter(user = user).order_by('-timestamp')
     for notification in notifications:
-        notification.boolean = True
-        notification.save()
-    context = {'notification':notifications}
-    return render(request,'base/notification.html',context)
+        if notification.user == user:
+            notification.boolean = True
+            notification.save()
+    context = {'notifications':notifications}
+    # return render(request,'base/notification.html',context)
+    # You can include navbar.html here
+    # context['navbar'] = render(request, 'base/navbar.html').content
+
+    return render(request, 'base/notification.html', context)
+
+
+# def icon(request):
+#     user = request.user
+#     notifications = Notification.objects.filter(user=user)
+#     print(notifications)
+#     context = {'notifications':notifications}
+#     return render(request,'base/navbar.html',context)
 

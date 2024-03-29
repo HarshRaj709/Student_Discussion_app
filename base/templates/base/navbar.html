@@ -14,15 +14,35 @@
       
 
       <ul class="navbar-nav ml-auto">
-        {% if notification.boolean == True %}   <!--yha pe sahi krna h-->
-          <div class="d-inline-flex">
-            <span class='nav-link'><a href="{% url 'notify' %}"><img src={% static 'base/images/with-dot.png' %}  alt="notification" width='50px' height='40px' class='m-0 p-0'></a></span>
-          </div>
-        {% else %}
-          <div class="d-inline-flex">
-            <span class='nav-link'><a href="{% url 'notify' %}"><img src={% static 'base/images/without-dot.png' %}  alt="notification" width='50px' height='40px' class='m-0 p-0'></a></span>
-          </div>
+
+          <!--Here it is working-->
+
+        {% if request.user.is_authenticated %}
+              {% for notify in notifications %}
+                  {% if notify.boolean == False %}
+                      <div class="d-inline-flex">
+                          <span class='nav-link'><a href="{% url 'notify' %}"><img src="{% static 'base/images/without-dot.png' %}" alt="notification" width='40px' height='40px' class='m-0 p-0'></a></span>
+                      </div>
+                  {% endif %}
+              {% endfor %}
         {% endif %}
+
+        
+
+        
+
+        {% comment %} {% if request.user.is_authenticated %}
+    {% if notifications.exists %}
+        <div class="d-inline-flex">
+            <span class='nav-link'><a href="{% url 'notify' %}"><img src="{% static 'base/images/without-dot.png' %}" alt="notification" width='50px' height='40px' class='m-0 p-0'></a></span>
+        </div>
+    {% endif %}
+{% endif %} {% endcomment %}
+
+
+
+          
+        
         {% if not request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link text-warning" href="{% url 'loginhandler' %}">Login</a>
@@ -42,6 +62,8 @@
               </div>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'notify' %}">Notifications</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'profile' user.id %}">Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'logouthandler' %}">Logout</a>
